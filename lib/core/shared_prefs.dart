@@ -37,7 +37,7 @@ class Prefs {
       _prefs!.setString(key, value);
 
   /// clear all data stored in the shared preferences
-  static clear() async {
-    await _prefs!.clear();
-  }
+  // static clear() async {
+  //   await _prefs!.clear();
+  // }
 }

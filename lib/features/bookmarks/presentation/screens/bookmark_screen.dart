@@ -12,13 +12,29 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
+
+
+  /// load prefs data
+  loadData() async {
+    final bookmarkProvider = context.read<BookmarkProvider>();
+    bookmarkProvider.loadBookmarksList();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      loadData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final BookmarkProvider bookmarkProvider =
-    Provider.of<BookmarkProvider>(context, listen: true);
+    final bookmarkProvider = context.watch<BookmarkProvider>();
     return Scaffold(
       appBar: buildAppBar(),
-      body: bookmarkProvider.getFavoritesList.isNotEmpty
+      body: bookmarkProvider.getBookmarksList.isNotEmpty
           ? SafeArea(
         child: SingleChildScrollView(
           child: Column(

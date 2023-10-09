@@ -8,21 +8,21 @@ import '../../../users/domain/users_domain.dart';
 enum EventLoadingStatus { notLoaded, loading, loaded }
 
 class BookmarkProvider with ChangeNotifier {
-  List<UserEntity> _favoritesList = [];
+  List<UserEntity> _bookmarksList = [];
   EventLoadingStatus _eventLoadingStatus = EventLoadingStatus.notLoaded;
 
   EventLoadingStatus get status => _eventLoadingStatus;
 
-  List<UserEntity> get getFavoritesList => _favoritesList;
+  List<UserEntity> get getBookmarksList => _bookmarksList;
 
-  Future<void> loadFavoritesList() async {
+  Future<void> loadBookmarksList() async {
     _eventLoadingStatus = EventLoadingStatus.loading;
     notifyListeners();
-
-    final jsonString = Prefs.getString(key: 'FavoriteUser');
+    final jsonString = await Prefs.getData(key: Constants.bookmarks);
     if (jsonString != null) {
       final jsonList = jsonDecode(jsonString) as List<dynamic>;
-      _favoritesList = jsonList.map((e) => User.fromJson(e)).toList();
+      _bookmarksList = jsonList.map((e) => User.fromJson(e)).toList();
+      notifyListeners();
     }
 
     _eventLoadingStatus = EventLoadingStatus.loaded;
@@ -30,19 +30,19 @@ class BookmarkProvider with ChangeNotifier {
   }
 
   Future<void> addOrRemoveFavorite(UserEntity userEntity) async {
-    if (isFavorite(userEntity)) {
-      _favoritesList.removeWhere((element) => element.userId == userEntity.userId!);
+    if (isBookmarked(userEntity)) {
+      _bookmarksList.removeWhere((element) => element.userId == userEntity.userId!);
     } else {
-      _favoritesList.add(userEntity);
+      _bookmarksList.add(userEntity);
     }
     await Prefs.setString(
-      'FavoriteUser',
-      json.encode(_favoritesList),
+      Constants.bookmarks,
+      json.encode(_bookmarksList),
     );
     notifyListeners();
   }
 
-  bool isFavorite(UserEntity userEntity) {
-    return _favoritesList.any((element) => element.userId == userEntity.userId!);
+  bool isBookmarked(UserEntity userEntity) {
+    return _bookmarksList.any((element) => element.userId == userEntity.userId!);
   }
 }

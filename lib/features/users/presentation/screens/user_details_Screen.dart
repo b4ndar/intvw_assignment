@@ -65,7 +65,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       actions: [
         IconButton(
           icon: Icon(
-            bookmarkProvider.isFavorite(widget.user!)
+            bookmarkProvider.isBookmarked(widget.user!)
                 ? Icons.bookmark_add
                 : Icons.bookmark_add_outlined,
             color: AppColor.primaryColor,

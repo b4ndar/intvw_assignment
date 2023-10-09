@@ -17,13 +17,13 @@ class BookMarksListWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: bookmarkProvider.getFavoritesList.length,
+      itemCount: bookmarkProvider.getBookmarksList.length,
       separatorBuilder: (BuildContext context, int index) {
         return Container();
       },
       itemBuilder: (BuildContext context, int index) {
         return UserCard(
-          user: bookmarkProvider.getFavoritesList[index],
+          user: bookmarkProvider.getBookmarksList[index],
         );
       },
     );

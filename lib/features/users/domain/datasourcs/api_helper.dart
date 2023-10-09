@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../../../core/core.dart';
+
+
 class ApiHelper {
-  static const String baseUrl = 'https://api.stackexchange.com/2.2/';
+  static const String baseUrl = Constants.baseUrl;
   static const Map<String, String> headers = {
   "Accept" : "application/json;charset=utf-t",
   "Accept-Language" : "en"

@@ -10,9 +10,6 @@ class ReputationHistoryEntity extends Equatable {
 
   const ReputationHistoryEntity({required this.reputationHistoryType, required this.reputationChange, required this.postId, required this.creationDate, required this.userId});
 
-
-
-
   @override
   List<Object?> get props => [reputationHistoryType,reputationChange,postId,creationDate,userId];
 }
